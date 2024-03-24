@@ -3,7 +3,7 @@ import { z } from "zod";
 import { Download, ImageIcon, Link } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Image from "next/Image";
+import Image from "next/image";
 import { Heading } from "@/components/heading";
 import { formScheme } from "./constants";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
@@ -92,7 +92,7 @@ const ConversationPage = () => {
               <Button>Generate</Button>
               <ImageUploader
                 afterUpload={async (e) => {
-                  console.log('e', e.target.files)
+                  console.log("e", e.target.files);
                   const file = e.target.files?.[0];
                   if (file) {
                     uploadedImage.current = file;
