@@ -14,16 +14,16 @@ const testimonials = [
     description: "The best app I've created",
   },
   {
-    name: "Chen",
+    name: "Chen yuan",
     avatar: "Yuan",
     title: "software engineer",
-    description: "The best app I've used",
+    description: "The best app I've created",
   },
   {
-    name: "yuan",
+    name: "Chen yuan",
     avatar: "Yuan",
     title: "software engineer",
-    description: "The best I've created",
+    description: "The best app I've created",
   },
 ];
 
@@ -34,11 +34,8 @@ export const LandingContent = () => {
         Testimonials
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {testimonials.map((testimonial, index) => (
-          <Card
-            key={testimonial.description}
-            className="bg-[#192339] border-none text-white"
-          >
+        {testimonials.map((testimonial, idx) => (
+          <Card key={idx} className="bg-[#192339] border-none text-white">
             <CardHeader>
               <CardTitle className="flex items-center gap-x-2">
                 <div>

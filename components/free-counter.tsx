@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { MAX_FREE_COUNTS } from "@/constants";
 import { Button } from "./ui/button";
 import { Zap } from "lucide-react";
 import { useProModal } from "@/hooks/use-pro-modal";
@@ -15,7 +14,7 @@ interface FreeCounterProps {
 export const FreeCounter = ({ apiLimitCount = 0 }: FreeCounterProps) => {
   const [mounted, setMounted] = useState(false);
   const proModal = useProModal();
-
+  const MAX_FREE_COUNTS = Number(process.env.MAX_FREE_COUNTS || 100);
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -30,7 +29,7 @@ export const FreeCounter = ({ apiLimitCount = 0 }: FreeCounterProps) => {
         <CardContent className="py-6">
           <div className="text-center text-sm text-white mb-4 space-y-2">
             <p>
-              {apiLimitCount} / {MAX_FREE_COUNTS}
+              {apiLimitCount} / {MAX_FREE_COUNTS} {"  "}
               Free Generations
               <Progress
                 className="h-3 mt-2"

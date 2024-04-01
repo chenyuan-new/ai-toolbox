@@ -4,11 +4,19 @@ import {
   Music,
   VideoIcon,
   ImagePlus,
+  LayoutDashboard,
 } from "lucide-react";
 
-export const tools = [
+export const routes = [
   {
-    label: "conversation",
+    label: "Dashboard",
+    icon: LayoutDashboard,
+    href: "/dashboard",
+    color: "text-sky-500",
+    isOnlySidebar: true,
+  },
+  {
+    label: "Conversation",
     color: "text-violet-500",
     bgColor: "bg-violet-500/10",
     icon: MessageSquare,
@@ -27,6 +35,7 @@ export const tools = [
     href: "/code",
     color: "text-green-700",
     bgColor: "bg-green-700/10",
+    disabled:true,
   },
   {
     label: "Video generation",
@@ -34,6 +43,8 @@ export const tools = [
     href: "/video",
     color: "text-orange-700",
     bgColor: "bg-orange-700/10",
+    disabled:true,
+
   },
   {
     label: "Music generation",
@@ -41,7 +52,8 @@ export const tools = [
     href: "/music",
     color: "text-emerald-500",
     bgColor: "bg-emerald-500/10",
+    disabled:true,
+
   },
 ];
 
-export const MAX_FREE_COUNTS = 2;

@@ -1,3 +1,4 @@
+import { checkApiLimit, increaseApiLimit } from "@/lib/api-limit";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
@@ -14,13 +15,22 @@ export async function POST(req: Request) {
     if (!prompt.length) {
       return new NextResponse("Messages are required", { status: 400 });
     }
-    const response = await fetch(process.env.CF_AI_URL+ "/image", {
+
+    const freeTrial = await checkApiLimit();
+    if (!freeTrial) {
+      return new NextResponse("Free trial has expired.", { status: 403 });
+    }
+
+    const response = await fetch(process.env.CF_AI_URL + "/image", {
       method: "post",
       // headers: {
       //   "content-type": `multipart/form-data; boundary=${formData.getBoundary()}`,
       // },
       body: formData,
     });
+
+    await increaseApiLimit();
+
     return response;
   } catch (e) {
     console.log("IMAGE", e);
