@@ -18,6 +18,7 @@ import { BotAvatar } from "@/components/bot-avatar";
 import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
 import { useProModal } from "@/hooks/use-pro-modal";
+import { useToast } from "@/components/ui/use-toast";
 
 type FormSchemeType = z.infer<typeof formScheme>;
 type ChatMessageType = { role: "user" | "assistant"; content: string };
@@ -26,6 +27,7 @@ const ConversationPage = () => {
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
   const router = useRouter();
   const proModal = useProModal();
+  const { toast } = useToast();
   const form = useForm<FormSchemeType>({
     resolver: zodResolver(formScheme),
     defaultValues: {
@@ -64,6 +66,11 @@ const ConversationPage = () => {
     } catch (e) {
       if (e!.message === "403") {
         proModal.onOpen();
+      } else {
+        toast({
+          title: "Uh oh! Something went wrong.",
+          description: "There was a problem with your request.",
+        });
       }
       console.log(e);
     } finally {
