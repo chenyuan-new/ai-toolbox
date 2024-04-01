@@ -63,8 +63,8 @@ const ConversationPage = () => {
         data as { role: "assistant"; content: string },
       ]);
       form.reset();
-    } catch (e) {
-      if (e!.message === "403") {
+    } catch (e: unknown) {
+      if (e instanceof Error && e.message === "403") {
         proModal.onOpen();
       } else {
         toast({
