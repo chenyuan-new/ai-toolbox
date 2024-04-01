@@ -22,7 +22,12 @@ You should **copy** the `.env.example` file and rename it to `.env.local` and fi
 - [cloudflare worker ai](https://developers.cloudflare.com/workers-ai/) - ai interface provider
 - [shadcn/ui](https://ui.shadcn.com/) - ui lib
 - [clerk](https://clerk.com/) - login
+- [neon](https://neon.tech/) - postgresql for api limit
 
 ## Deploy
 
 You just need to deploy this Nextjs repo on vercel and the worker repo on cloudflare worker. Then set the env in vercel and it's all done 
+
+## TODO
+- [ ] complement image inpainting、music generation and video generation
+- [ ] complement upgrade process 
