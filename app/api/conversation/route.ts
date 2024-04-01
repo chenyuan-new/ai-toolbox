@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
+import { checkApiLimit, increaseApiLimit } from "@/lib/api-limit";
 export async function POST(req: Request) {
   try {
     const { userId } = auth();
@@ -13,6 +14,11 @@ export async function POST(req: Request) {
       return new NextResponse("Messages are required", { status: 400 });
     }
 
+    const freeTrial = await checkApiLimit();
+    if (!freeTrial) {
+      return new NextResponse("Free trial has expired.", { status: 403 });
+    }
+
     const response = await fetch(process.env.CF_AI_URL + "/conversation", {
       method: "post",
       headers: {
@@ -23,6 +29,8 @@ export async function POST(req: Request) {
       }),
     });
     const data = await response.json();
+
+    await increaseApiLimit();
     return NextResponse.json(data);
   } catch (e) {
     console.log("CONVERSATION", e);

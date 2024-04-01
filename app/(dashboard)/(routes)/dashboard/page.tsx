@@ -1,54 +1,12 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
+import { tools } from "@/constants";
 import { cn } from "@/lib/utils";
 import {
   ArrowRight,
-  ImageIcon,
-  MessageSquare,
-  Music,
-  VideoIcon,
-  ImagePlus,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-
-const tools = [
-  {
-    label: "conversation",
-    color: "text-violet-500",
-    bgColor: "bg-violet-500/10",
-    icon: MessageSquare,
-    href: "/conversation",
-  },
-  {
-    label: "Image generation",
-    icon: ImageIcon,
-    href: "/image",
-    color: "text-pink-700",
-    bgColor: "bg-pink-700/10",
-  },
-  {
-    label: "Image inpainting",
-    icon: ImagePlus,
-    href: "/code",
-    color: "text-green-700",
-    bgColor: "bg-green-700/10",
-  },
-  {
-    label: "Image generation",
-    icon: VideoIcon,
-    href: "/video",
-    color: "text-orange-700",
-    bgColor: "bg-orange-700/10",
-  },
-  {
-    label: "Music generation",
-    icon: Music,
-    href: "/music",
-    color: "text-emerald-500",
-    bgColor: "bg-emerald-500/10",
-  },
-];
 
 const DashboardPage = () => {
   const router = useRouter();

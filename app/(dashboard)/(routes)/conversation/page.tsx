@@ -17,6 +17,7 @@ import { UserAvatar } from "@/components/user-avatar";
 import { BotAvatar } from "@/components/bot-avatar";
 import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 type FormSchemeType = z.infer<typeof formScheme>;
 type ChatMessageType = { role: "user" | "assistant"; content: string };
@@ -24,6 +25,7 @@ type ChatMessageType = { role: "user" | "assistant"; content: string };
 const ConversationPage = () => {
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
   const router = useRouter();
+  const proModal = useProModal();
   const form = useForm<FormSchemeType>({
     resolver: zodResolver(formScheme),
     defaultValues: {
@@ -49,6 +51,9 @@ const ConversationPage = () => {
           prompts: newMessages,
         }),
       });
+      if (!response.ok) {
+        throw new Error(response.status.toString());
+      }
       const data = await response.json();
       setMessages((current) => [
         ...current,
@@ -57,6 +62,9 @@ const ConversationPage = () => {
       ]);
       form.reset();
     } catch (e) {
+      if (e!.message === "403") {
+        proModal.onOpen();
+      }
       console.log(e);
     } finally {
       // https://nextjs.org/docs/app/api-reference/functions/use-router#userouter
@@ -101,7 +109,7 @@ const ConversationPage = () => {
           </form>
         </Form>
       </div>
-      <div className="space-y-4 mt-4">
+      <div className="space-y-4 mt-4 px-4 lg:px-8">
         {isLoading && (
           <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
             <Loader />
